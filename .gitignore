@@ -1,0 +1,6 @@
+
+*.exe
+
+.Testing.cs.swp
+
+bin/Debug/Testing.exe.mdb
