@@ -18,19 +18,25 @@ namespace Newtons{
 
 		public static void newtonTest(){
 			Derivative d = new Derivative();
-			Func<double, double> f = delegate(double x) { return x*x-3; };
+			Func<double, double> f = delegate(double x) { return x*x-10; };
 
 			double xn = -2.2;
 			double f_val;
 			double d_val;
+			int maxn = 100;
 			int count = 0;
+			double min_error = 10e-7;
+			double eps = 1.0;
+			double y;
 
-			//
-			while (count < 50){
+			while (eps >= min_error && count <= maxn){
 				f_val = f(xn);
 				d_val = d.Dev(f,xn);
+				y = xn-(f_val/d_val);
+				eps = Math.Abs(y-xn);
 				xn = xn-(f_val/d_val);
 				Console.WriteLine("X{0} = {1}",count+1,xn);
+
 				count++;
 			}
 		}
