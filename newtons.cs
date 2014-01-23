@@ -16,33 +16,41 @@ namespace Newtons{
 
 		}
 
-		public static void newtonTest(){
-			Derivative d = new Derivative();
-			Func<double, double> f = delegate(double x) { return x*x-10; };
-
-			double xn = -2.2;
+		public class Newton : Derivative{
+			Func<double,double> f;
+			double xn = 2.2;
 			double f_val;
 			double d_val;
 			int maxn = 100;
-			int count = 0;
+			int count = 1;
 			double min_error = 10e-7;
 			double eps = 1.0;
 			double y;
 
-			while (eps >= min_error && count <= maxn){
+			public Newton(Func<double,double> function){
+				f = function;
+			} 
+
+			public void Aproximate(){
+
+				while (eps >= min_error && count <= maxn){
 				f_val = f(xn);
-				d_val = d.Dev(f,xn);
+				d_val = Dev(f,xn);
 				y = xn-(f_val/d_val);
 				eps = Math.Abs(y-xn);
 				xn = xn-(f_val/d_val);
-				Console.WriteLine("X{0} = {1}",count+1,xn);
-
+				Console.WriteLine("X{0} = {1}",count,xn);
 				count++;
 			}
 		}
 
+
+		}
+
 		public static void Main(){
-			newtonTest();
+			Func<double, double> f = delegate(double x) { return x*x-5; };
+			Newton newton = new Newton(f);
+			newton.Aproximate();
 
 		}
 
