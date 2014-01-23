@@ -27,8 +27,10 @@ namespace Newtons{
 			double eps = 1.0;
 			double y;
 
-			public Newton(Func<double,double> function){
+			public Newton(Func<double,double> function, double error, int max_iter){
+				min_error = error;
 				f = function;
+				maxn = max_iter;
 			} 
 
 			public void Aproximate(){
@@ -49,7 +51,7 @@ namespace Newtons{
 
 		public static void Main(){
 			Func<double, double> f = delegate(double x) { return x*x-5; };
-			Newton newton = new Newton(f);
+			Newton newton = new Newton(f,10e-7,100);
 			newton.Aproximate();
 
 		}
